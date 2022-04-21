@@ -1,6 +1,10 @@
-﻿namespace BackEnd.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BackEnd.Models
 {
-    public class EntidadeBase
+    public abstract class EntidadeBase
     {
+        [Key]
+        public int Id { get; protected set; }
     }
 }
