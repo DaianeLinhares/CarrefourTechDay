@@ -1,4 +1,5 @@
 using BackEnd.Context;
+using BackEnd.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -30,6 +31,9 @@ namespace BackEnd
         {
             services.AddDbContext<AddDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("Carrefour")));
+
+            //sempre que referenciar recebe a implementação
+            services.AddScoped<IUsuario, UsuarioService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
