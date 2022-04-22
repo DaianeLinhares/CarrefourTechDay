@@ -4,8 +4,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace BackEnd.Models
 {
     [Table("Usuario")]
-    public class Usuario : EntidadeBase
+    public class Usuario
     {
+        [Key]
+        public int Id { get; set; }
+
         [Required(ErrorMessage = "Digite seu nome")]
         [StringLength(50)]
         public string Nome { get; set; }

@@ -1,5 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BackEnd.Models;
+using BackEnd.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BackEnd.Controllers
 {
@@ -7,5 +11,49 @@ namespace BackEnd.Controllers
     [ApiController]
     public class UsuarioController : ControllerBase
     {
+        private IUsuario _usuarioService;
+
+        public UsuarioController(IUsuario usuarioService)
+        {
+            _usuarioService = usuarioService;
+        }
+
+        [HttpGet]
+        //async Task é uma operação assincrona
+        //ActionResult retornar uma resposta da api
+        public async Task<ActionResult<IAsyncEnumerable<Usuario>>> GetUsuario()
+        {
+            var usuarios = await _usuarioService.GetUsuarios();
+            return Ok(usuarios);
+
+        }
+
+        [HttpGet("{id}", Name="GetUsuario")]
+        public async Task<ActionResult<Usuario>> GetUsuario(int id)
+        {
+            var usuario = await _usuarioService.GetUsuario(id);
+            return Ok(usuario);
+
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Create(Usuario usuario)
+        {
+                await _usuarioService.CreateUsuario(usuario);
+                return CreatedAtRoute(nameof(GetUsuario), new { id = usuario.Id }, usuario);
+          
+        }
+
+        [HttpPut]
+      
+        public async Task<ActionResult> Update(int id, Usuario usuario)
+        {
+         
+                await _usuarioService.UpdateUsuario(usuario);
+                return Ok(usuario);
+            
+
+
+        }
     }
 }
