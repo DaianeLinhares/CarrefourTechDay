@@ -9,11 +9,11 @@ namespace BackEnd.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsuarioController : ControllerBase
+    public class BadRequest : ControllerBase
     {
         private IUsuario _usuarioService;
 
-        public UsuarioController(IUsuario usuarioService)
+        public BadRequest(IUsuario usuarioService)
         {
             _usuarioService = usuarioService;
         }
@@ -44,16 +44,32 @@ namespace BackEnd.Controllers
           
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
       
         public async Task<ActionResult> Update(int id, Usuario usuario)
         {
-         
+            if(usuario.Id == id)
+            {
                 await _usuarioService.UpdateUsuario(usuario);
                 return Ok(usuario);
-            
-
+            }
+            return BadRequest("Erro");
 
         }
+
+        [HttpDelete("{id}")]
+
+        public async Task<ActionResult> Delete(int id)
+        {
+            var usuario = await _usuarioService.GetUsuario(id);
+           if(usuario != null)
+            {
+                await _usuarioService.DeleteUsuario(usuario);
+                return Ok("Usuario excluido");
+            }
+            return BadRequest("Erro");
+
+        }
+       
     }
 }
