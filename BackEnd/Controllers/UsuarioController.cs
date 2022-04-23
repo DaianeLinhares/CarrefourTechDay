@@ -9,15 +9,14 @@ namespace BackEnd.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BadRequest : ControllerBase
+    public class UsuarioController : ControllerBase
     {
         private IUsuario _usuarioService;
 
-        public BadRequest(IUsuario usuarioService)
+        public UsuarioController(IUsuario usuarioService)
         {
             _usuarioService = usuarioService;
         }
-
         [HttpGet]
         //async Task é uma operação assincrona
         //ActionResult retornar uma resposta da api
@@ -28,7 +27,7 @@ namespace BackEnd.Controllers
 
         }
 
-        [HttpGet("{id}", Name="GetUsuario")]
+        [HttpGet("{id}", Name = "GetUsuario")]
         public async Task<ActionResult<Usuario>> GetUsuario(int id)
         {
             var usuario = await _usuarioService.GetUsuario(id);
@@ -39,16 +38,16 @@ namespace BackEnd.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(Usuario usuario)
         {
-                await _usuarioService.CreateUsuario(usuario);
-                return CreatedAtRoute(nameof(GetUsuario), new { id = usuario.Id }, usuario);
-          
+            await _usuarioService.CreateUsuario(usuario);
+            return CreatedAtRoute(nameof(GetUsuario), new { id = usuario.Id }, usuario);
+
         }
 
         [HttpPut("{id}")]
-      
+
         public async Task<ActionResult> Update(int id, Usuario usuario)
         {
-            if(usuario.Id == id)
+            if (usuario.Id == id)
             {
                 await _usuarioService.UpdateUsuario(usuario);
                 return Ok(usuario);
@@ -62,7 +61,7 @@ namespace BackEnd.Controllers
         public async Task<ActionResult> Delete(int id)
         {
             var usuario = await _usuarioService.GetUsuario(id);
-           if(usuario != null)
+            if (usuario != null)
             {
                 await _usuarioService.DeleteUsuario(usuario);
                 return Ok("Usuario excluido");
@@ -70,6 +69,6 @@ namespace BackEnd.Controllers
             return BadRequest("Erro");
 
         }
-       
+
     }
 }
