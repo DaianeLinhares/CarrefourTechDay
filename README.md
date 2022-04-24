@@ -1,4 +1,4 @@
-# CarrefourTachDay
+# CarrefourTechDay
 
 - Api criada para cadastro de usuaria, seguindo o projeto proposto.
 
