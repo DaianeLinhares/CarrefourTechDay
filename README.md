@@ -4,7 +4,8 @@
 
 ## Tecnologias
 - IDE Visual Studio
-- .Net
+- C# .Net
 - SQL Server
+
 
 ![image](https://user-images.githubusercontent.com/91790650/164959680-06176199-852f-4679-a6d1-f83348e99460.png)
